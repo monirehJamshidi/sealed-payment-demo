@@ -124,3 +124,24 @@ mvn spring-boot:run
 - کامپایلر می‌دونه که Payment فقط همین ۳ نوع رو داره (چون sealed هست).
 - دیگه نیاز به default نداری.
 - متغیرها (c, p, x) همزمان تعریف و cast شده‌اند.
+
+## 🔹 کار Pattern Matching با Guard (when)
+می‌تونی شرط اضافه هم بذاری:
+
+    static String checkAmount(Payment payment) {
+        return switch (payment) {
+            case CreditCardPayment c when c.amount() > 1000 -> "High value credit card payment";
+            case CreditCardPayment c                        -> "Normal credit card payment";
+            case PayPalPayment p                            -> "PayPal payment";
+            case CryptoPayment x                            -> "Crypto payment";
+        };
+    }
+
+## ✅ مزایا
+1. کد کوتاه‌تر و خواناتر.
+
+2. حذف نیاز به casting دستی.
+
+3. امنیت بیشتر (کامپایلر همه‌ی حالت‌ها رو چک می‌کنه).
+
+4. مخصوصاً با sealed عالی کار می‌کنه، چون همه‌ی sub-type ها مشخص‌اند.
