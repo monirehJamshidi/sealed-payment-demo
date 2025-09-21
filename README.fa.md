@@ -91,3 +91,36 @@ mvn spring-boot:run
         String s = (String) obj; // نیاز به cast جداگانه
         System.out.println(s.toUpperCase());
     }
+
+## 🔹 با Pattern Matching (از Java 16)
+نیازی به cast جدا نیست:
+
+    Object obj = "Hello Java";
+
+    if (obj instanceof String s) {
+        System.out.println(s.toUpperCase()); // مستقیم استفاده میشه
+    }
+
+## 🔹 با Pattern Matching در Switch (از Java 21)
+اینجا قدرت اصلی Pattern Matching معلوم می‌شه.
+
+فرض کن یک sealed interface داری:
+
+    sealed interface Payment permits CreditCardPayment, PayPalPayment, CryptoPayment {}
+    record CreditCardPayment(String cardNumber, double amount) implements Payment {}
+    record PayPalPayment(String email, double amount) implements Payment {}
+    record CryptoPayment(String walletId, double amount) implements Payment {}
+
+حالا با Pattern Matching در switch:
+
+    static String processPayment(Payment payment) {
+        return switch (payment) {
+            case CreditCardPayment c -> "Credit card: " + c.cardNumber();
+            case PayPalPayment p     -> "PayPal: " + p.email();
+            case CryptoPayment x     -> "Crypto: " + x.walletId();
+        };
+    }
+
+- کامپایلر می‌دونه که Payment فقط همین ۳ نوع رو داره (چون sealed هست).
+- دیگه نیاز به default نداری.
+- متغیرها (c, p, x) همزمان تعریف و cast شده‌اند.
