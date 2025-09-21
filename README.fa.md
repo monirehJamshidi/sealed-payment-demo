@@ -81,3 +81,13 @@ mvn spring-boot:run
 
 ## ✨ تعریف Pattern Matching 
 یعنی جاوا بهت اجازه می‌ده وقتی داری با instanceof یا switch کار می‌کنی، همزمان هم چک نوع (type check) انجام بدی و هم کست کردن (cast) رو به صورت خودکار انجام بده.
+
+## 🔹 قبل از Pattern Matching
+مثلاً می‌خوای بررسی کنی که آبجکت از نوع String هست یا نه:
+
+    Object obj = "Hello Java";
+
+    if (obj instanceof String) {
+        String s = (String) obj; // نیاز به cast جداگانه
+        System.out.println(s.toUpperCase());
+    }
