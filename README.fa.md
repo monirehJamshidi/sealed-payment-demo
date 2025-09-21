@@ -68,9 +68,14 @@ public non-sealed class Bike implements Vehicle {
 وقتی از sealed استفاده می‌کنید، کامپایلر مطمئن است که همه‌ی زیرکلاس‌ها مشخص هستند، پس می‌توان در switch به شکل ایمن از آن‌ها استفاده کرد:
 
 static String getType(Vehicle v) {
-return switch (v) {
-case Car c    -> "This is a car";
-case Truck t  -> "This is a truck";
-case Bike b   -> "This is a bike";
-};
+
+    return switch (v) {
+        case Car c    -> "This is a car";
+        case Truck t  -> "This is a truck";
+        case Bike b   -> "This is a bike";
+    };
 }
+
+---
+
+## ✨ Pattern Matching چیست؟
