@@ -27,34 +27,34 @@ mvn spring-boot:run
 - کمک به Pattern Matching در switch (که در جاوا 21 به بلوغ رسید).
 
 ## مثال عملی (با class)
-public sealed class Shape
-permits Circle, Rectangle, Square {
-}
+    public sealed class Shape
+        permits Circle, Rectangle, Square {
+    }
 
-public final class Circle extends Shape {
-}
+    public final class Circle extends Shape {
+    }
 
-public final class Rectangle extends Shape {
-}
+    public final class Rectangle extends Shape {
+    }
 
-public non-sealed class Square extends Shape {
-}
+    public non-sealed class Square extends Shape {
+    }
 
 
 
 ## مثال عملی (با اینترفیس)
-public sealed interface Vehicle
-permits Car, Truck, Bike {
-}
+    public sealed interface Vehicle
+        permits Car, Truck, Bike {
+    }
 
-public final class Car implements Vehicle {
-}
+    public final class Car implements Vehicle {
+    }
 
-public final class Truck implements Vehicle {
-}
+    public final class Truck implements Vehicle {
+    }
 
-public non-sealed class Bike implements Vehicle {
-}
+    public non-sealed class Bike implements Vehicle {
+    }
 
 
 ## توضیح کلیدواژه‌ها
@@ -67,15 +67,17 @@ public non-sealed class Bike implements Vehicle {
 ## استفاده در Pattern Matching
 وقتی از sealed استفاده می‌کنید، کامپایلر مطمئن است که همه‌ی زیرکلاس‌ها مشخص هستند، پس می‌توان در switch به شکل ایمن از آن‌ها استفاده کرد:
 
-static String getType(Vehicle v) {
 
-    return switch (v) {
-        case Car c    -> "This is a car";
-        case Truck t  -> "This is a truck";
-        case Bike b   -> "This is a bike";
-    };
-}
+    static String getType(Vehicle v) {
+
+        return switch (v) {
+            case Car c    -> "This is a car";
+            case Truck t  -> "This is a truck";
+            case Bike b   -> "This is a bike";
+        };
+    }
 
 ---
 
 ## ✨ تعریف Pattern Matching 
+یعنی جاوا بهت اجازه می‌ده وقتی داری با instanceof یا switch کار می‌کنی، همزمان هم چک نوع (type check) انجام بدی و هم کست کردن (cast) رو به صورت خودکار انجام بده.
